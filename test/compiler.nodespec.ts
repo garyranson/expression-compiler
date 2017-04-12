@@ -5,11 +5,6 @@ describe("Lexer Reader Tests 1.", () => {
   let compiler: Compiler;
   let scope: any;
 
-  function x(expr: string): any {
-    let c = compiler.compile(expr);
-    return c.eval(scope);
-  }
-
   beforeEach(function () {
     compiler = new Compiler();
     scope    = {
@@ -57,7 +52,7 @@ describe("Lexer Reader Tests 1.", () => {
       {expression: "val1", value: scope.val1}
     ];
 
-    expect(compiler.eval("1+1", scope)).equals(3);
+    expect(compiler.eval("1+1", scope)).equals(2);
 
     for (let test of tests) {
       expect(compiler.eval(test.expression, scope)).equals(test.value, test.expression);

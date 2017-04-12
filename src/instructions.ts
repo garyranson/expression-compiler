@@ -21,7 +21,7 @@ function isConstant(args: Instruction[]): boolean {
   return true;
 }
 
-function failSafe() : never {
+function failSafe(): never {
   throw "cannot call";
 }
 
