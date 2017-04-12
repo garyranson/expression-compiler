@@ -1,0 +1,14 @@
+{
+  "name": "expression-compiler",
+  "version": "0.0.1",
+  "description": "Expression Compiler",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Gary Ranson",
+  "license": "ISC",
+  "devDependencies": {
+    "expression-parser": "git+https://github.com/garyranson/expression-parser.git"
+  }
+}
