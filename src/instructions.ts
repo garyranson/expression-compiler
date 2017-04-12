@@ -1,4 +1,9 @@
-const emptyScope = Object.freeze({});
+const emptyScope = Object.freeze({ });
+
+export interface Instruction {
+  eval(scope?: any): any;
+  isConstant(): boolean;
+}
 
 function evaluateAll(scope: any, args: Instruction[]): any[] {
   const rc = [];
@@ -16,7 +21,7 @@ function isConstant(args: Instruction[]): boolean {
   return true;
 }
 
-function failSafe() {
+function failSafe() : never {
   throw "cannot call";
 }
 
@@ -24,7 +29,7 @@ function safeCall(fn: any, method: any): any {
   return (fn && fn[method]) || failSafe;
 }
 
-abstract class BinaryBase implements Instruction {
+export abstract class BinaryBase implements Instruction {
   constructor(protected left: Instruction, protected right: Instruction) {
   }
 
@@ -285,12 +290,16 @@ export class ScopeCall3Instruction implements Instruction {
     return isConstant([this.a1, this.a2, this.a3]);
   }
 }
+
+interface StringMap<T> {
+  [index: string]: T;
+}
 export class ObjectInstruction implements Instruction {
   constructor(private propertyNames: Array<string>, private instructions: Array<Instruction>) {
   }
-
   eval(scope: any): any {
-    let obj = {};
+    let obj = <StringMap<any>>{};
+
     for (let i = 0; i < this.propertyNames.length; i++) {
       obj[this.propertyNames[i]] = this.instructions[i].eval(scope);
     }

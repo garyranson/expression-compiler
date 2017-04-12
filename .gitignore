@@ -1,6 +1,7 @@
-/src/**/*.js
-/dist/**/*.js.map
 /node_modules
 /test/**/*.js
 /test/**/*.map
-work
+/test/**/*.d.ts
+/src/**/*.js
+/src/**/*.map
+/src/**/*.d.ts

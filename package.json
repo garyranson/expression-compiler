@@ -2,13 +2,21 @@
   "name": "expression-compiler",
   "version": "0.0.1",
   "description": "Expression Compiler",
-  "main": "index.js",
+  "main": "src/index.js",
+  "typings": "src/index",
   "scripts": {
     "test": "test"
   },
   "author": "Gary Ranson",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^3.5.0",
+    "@types/mocha": "^2.2.40",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
     "expression-parser": "git+https://github.com/garyranson/expression-parser.git"
   }
 }

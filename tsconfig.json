@@ -1,31 +1,16 @@
 {
-  "version": "2.2.1",
+  "version": "2.2.2",
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "work",
-    "declaration": false,
-    "sourceMap": true,
     "target": "es5",
     "module": "commonjs",
-    "noImplicitAny": false,
-    "noResolve": true,
-    "removeComments": true,
-    "noLib": false,
+    "outDir": "lib",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "typeRoots": [
-      "src/@types",
-      "node_modules/@types"
-    ]
+    "declaration": true
   },
   "include" : [
-    "src",
-    "test"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "work"
+    "src"
   ]
 }
