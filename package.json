@@ -18,5 +18,9 @@
   },
   "dependencies": {
     "expression-parser": "git+https://github.com/garyranson/expression-parser.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garyranson/expression-compiler.git"
   }
 }

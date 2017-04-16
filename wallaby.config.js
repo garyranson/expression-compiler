@@ -1,19 +1,14 @@
-module.exports = function (w) {
+module.exports = function () {
     return {
         "files": [
             "src/**/*.ts"
         ],
         "tests": [
-            "test/**/*.nodespec.ts"
+            "test/**/*.git statusnodespec.ts"
         ],
         "env": {
             type: "node"
         },
-        testFramework: "mocha",
-        "compilers": {
-            "**/*.ts": w.compilers.typeScript({
-                "module": "commonjs"
-            })
-        }
+        testFramework: "mocha"
     }
 };
