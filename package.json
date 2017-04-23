@@ -4,6 +4,7 @@
   "description": "Expression Compiler",
   "main": "src/index.js",
   "typings": "src/index",
+  "registry" : "npm",
   "scripts": {
     "test": "test"
   },
