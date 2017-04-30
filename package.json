@@ -29,6 +29,9 @@
     "main": "index",
     "directories": {
       "lib": "lib"
+    },
+    "dependencies": {
+      "expression-parser": "github:garyranson/expression-parser@master"
     }
   }
 }
