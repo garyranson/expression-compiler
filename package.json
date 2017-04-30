@@ -23,5 +23,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/garyranson/expression-compiler.git"
+  },
+  "jspm": {
+    "registry": "jspm",
+    "main": "index",
+    "directories": {
+      "lib": "lib"
+    }
   }
 }
