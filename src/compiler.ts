@@ -7,7 +7,15 @@ export class Compiler {
   parser: Parser                = new Parser();
 
   compile(code: string): Instruction {
-    return this.parser.parseExpression(code).visit(this.visitor);
+    return this.parser.parseExpression(code || "").visit(this.visitor);
+  }
+
+  compileMulti(code: string): Instruction[] {
+    return this.parser.parseExpressions(code || "").map((c) => c.visit(this.visitor));
+  }
+
+  compileContent(code: string): Instruction {
+    return this.parser.parseContent(code || "").visit(this.visitor);
   }
 
   eval(code: string, scope: any): any {

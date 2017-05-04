@@ -6,3 +6,4 @@
 /src/**/*.map
 /src/**/*.d.ts
 /.idea
+/jspm_packages

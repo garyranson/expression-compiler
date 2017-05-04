@@ -198,3 +198,9 @@ export declare class BinaryDivideInstruction extends BinaryBase {
 export declare class BinaryModulusInstruction extends BinaryBase {
     eval(scope: any): any;
 }
+export declare class ConcatenateInstuction implements Instruction {
+    private evals;
+    constructor(evals: Instruction[]);
+    eval(scope: any): any;
+    isConstant(): boolean;
+}

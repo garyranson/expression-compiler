@@ -1,8 +1,15 @@
 import {Expression, Visitor} from "expression-parser";
-import {Instruction} from "./instructions";
 import * as Instructions from "./instructions";
+import {Instruction} from "./instructions";
 
 export class CompileVisitor implements Visitor<Instruction> {
+  visitConcatenate(expr: Expression[]): Instruction {
+    let instructions = this.resolveArgs(expr);
+    return instructions.length === 1
+      ? instructions[0]
+      : new Instructions.ConcatenateInstuction(instructions);
+  }
+
   visitBinary(operator: string, left: Expression, right: Expression): Instruction {
     const instruction = new (getBinaryInstruction(operator))(left.visit(this), right.visit(this));
     return instruction.isConstant()

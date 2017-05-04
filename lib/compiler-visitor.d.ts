@@ -1,6 +1,7 @@
 import { Expression, Visitor } from "expression-parser";
 import { Instruction } from "./instructions";
 export declare class CompileVisitor implements Visitor<Instruction> {
+    visitConcatenate(expr: Expression[]): Instruction;
     visitBinary(operator: string, left: Expression, right: Expression): Instruction;
     visitLogicalOr(left: Expression, right: Expression): Instruction;
     visitLogicalAnd(left: Expression, right: Expression): Instruction;

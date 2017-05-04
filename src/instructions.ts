@@ -1,4 +1,4 @@
-const emptyScope = Object.freeze({ });
+const emptyScope = Object.freeze({});
 
 export interface Instruction {
   eval(scope?: any): any;
@@ -28,6 +28,7 @@ function failSafe(): never {
 function safeCall(fn: any, method: any): any {
   return (fn && fn[method]) || failSafe;
 }
+
 
 export abstract class BinaryBase implements Instruction {
   constructor(protected left: Instruction, protected right: Instruction) {
@@ -297,6 +298,7 @@ interface StringMap<T> {
 export class ObjectInstruction implements Instruction {
   constructor(private propertyNames: Array<string>, private instructions: Array<Instruction>) {
   }
+
   eval(scope: any): any {
     let obj = <StringMap<any>>{};
 
@@ -397,5 +399,21 @@ export class BinaryDivideInstruction extends BinaryBase {
 export class BinaryModulusInstruction extends BinaryBase {
   eval(scope: any): any {
     return this.left.eval(scope) % this.right.eval(scope);
+  }
+}
+
+export class ConcatenateInstuction implements Instruction {
+  constructor(private evals: Instruction[]) {
+  }
+
+  eval(scope: any): any {
+    let s = "";
+    for (let e of this.evals) {
+      s += e[scope].toString();
+    }
+    return s;
+  }
+  isConstant(): boolean {
+    return isConstant(this.evals);
   }
 }

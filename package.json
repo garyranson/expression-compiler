@@ -4,7 +4,7 @@
   "description": "Expression Compiler",
   "main": "src/index.js",
   "typings": "src/index",
-  "registry" : "npm",
+  "registry": "npm",
   "scripts": {
     "test": "test"
   },
@@ -14,12 +14,11 @@
     "@types/chai": "^3.5.0",
     "@types/mocha": "^2.2.40",
     "chai": "^3.5.0",
+    "jspm": "^0.16.53",
     "mocha": "^3.2.0",
     "typescript": "^2.2.2"
   },
-  "dependencies": {
-    "expression-parser": "git+https://github.com/garyranson/expression-parser.git"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/garyranson/expression-compiler.git"
@@ -32,6 +31,7 @@
     },
     "dependencies": {
       "expression-parser": "github:garyranson/expression-parser@master"
-    }
+    },
+    "devDependencies": {}
   }
 }
