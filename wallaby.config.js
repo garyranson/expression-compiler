@@ -4,7 +4,7 @@ module.exports = function () {
             "src/**/*.ts"
         ],
         "tests": [
-            "test/**/*.git statusnodespec.ts"
+            "test/**/*.nodespec.ts"
         ],
         "env": {
             type: "node"

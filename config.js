@@ -9,13 +9,13 @@ System.config({
   packages: {
     "lib": {
       "defaultExtension": "js",
-      "format": "system"
+      "format": "cjs"
     }
   },
 
   meta: {
     "jspm_packages/github/garyranson/*": {
-      "format": "system"
+      "format": "cjs"
     }
   },
 
