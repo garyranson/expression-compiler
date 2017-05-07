@@ -1,24 +1,3 @@
 export * from "./compiler";
-
-/*
-"devDependencies": {
-  "expression-parser": "git+https://github.com/garyranson/expression-parser.git",
-    "@types/chai": "^3.4.35",
-    "@types/gulp": "^4.0.2",
-    "@types/mocha": "^2.2.40",
-    "babel-preset-es2015": "^6.24.1",
-    "babelify": "^7.3.0",
-    "browserify": "^14.3.0",
-    "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.5.1",
-    "gulp-typescript": "^3.1.6",
-    "gulp-uglify": "^2.1.2",
-    "mocha": "^3.2.0",
-    "ts-node": "^3.0.2",
-    "tsify": "^3.0.1",
-    "typescript": "^2.2.2",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
-},
-*/
+export * from "./compiler-visitor";
+export * from "./instructions";

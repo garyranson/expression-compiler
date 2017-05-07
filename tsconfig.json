@@ -8,11 +8,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
-    "baseUrl": ".",
-    "paths" : {
-      "expression-parser" : ["jspm_packages/github/garyranson/expression-parser@master/index.d.ts"]
-    }
+    "declaration": true
   },
   "include" : [
     "src"
