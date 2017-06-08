@@ -7,7 +7,9 @@ export class Compiler {
   parser: Parser                = new Parser();
 
   compile(code: string): Instruction {
-    return this.parser.parseExpression(code || "").visit(this.visitor);
+    let expr = this.parser.parseExpression(code || "");
+    console.log(expr.constructor);
+    return expr.visit(this.visitor);
   }
 
   compileMulti(code: string): Instruction[] {

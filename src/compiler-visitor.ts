@@ -17,6 +17,7 @@ export class CompileVisitor implements Visitor<Instruction> {
       : instruction;
   }
 
+
   visitLogicalOr(left: Expression, right: Expression): Instruction {
     const leftIns = left.visit(this);
     return leftIns.isConstant()
@@ -163,3 +164,4 @@ function getBinaryInstruction(operator: string): new (left: Instruction, right: 
       return Instructions.BinaryModulusInstruction;
   }
 }
+

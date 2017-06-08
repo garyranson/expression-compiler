@@ -1,6 +1,6 @@
 {
   "name": "expression-compiler",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Expression Compiler",
   "main": "lib/index.js",
   "typings": "lib/index",
@@ -19,7 +19,7 @@
     "typescript": "^2.2.2"
   },
   "dependencies": {
-    "expression-parser": "git+https://github.com/garyranson/expression-parser.git"
+    "expression-parser": "github:garyranson/expression-parser"
   },
   "repository": {
     "type": "git",
@@ -34,9 +34,7 @@
     "directories": {
       "lib": "lib"
     },
-    "dependencies": {
-      "expression-parser": "github:garyranson/expression-parser@master"
-    },
+    "dependencies": {},
     "devDependencies": {}
   }
 }

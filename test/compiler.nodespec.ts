@@ -24,6 +24,9 @@ describe("Lexer Reader Tests 1.", () => {
   });
   it("parses literal primitives", function () {
     let tests = [
+      {expression: "1||21", value: 1}
+      ];
+    let tests2 = [
       {expression: "b.fn(1,2).toString()", value: scope.b.fn(1, 2).toString()},
       {expression: "b.fn", value: scope.b.fn},
       {expression: "b.fn(1,2)", value: scope.b.fn(1, 2)},
@@ -49,10 +52,16 @@ describe("Lexer Reader Tests 1.", () => {
       {expression: "1", value: 1},
       {expression: "2.2", value: 2.2},
       {expression: "1+2", value: 3},
+      {expression: "1-2", value: -1},
+      {expression: "10*3", value: 30},
+      {expression: "30/3", value: 10},
+      {expression: "15%10", value: 5},
+      {expression: "-3.141", value: -3.141},
+      {expression: "-3+1", value: -2},
+      {expression: "+3.141", value: 3.141},
+      {expression: "1||1", value: 3.141},
       {expression: "val1", value: scope.val1}
     ];
-
-    expect(compiler.eval("1+1", scope)).equals(2);
 
     for (let test of tests) {
       expect(compiler.eval(test.expression, scope)).equals(test.value, test.expression);

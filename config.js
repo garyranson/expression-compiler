@@ -17,9 +17,5 @@ System.config({
     "jspm_packages/github/garyranson/*": {
       "format": "cjs"
     }
-  },
-
-  map: {
-    "expression-parser": "github:garyranson/expression-parser@master"
   }
 });
