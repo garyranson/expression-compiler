@@ -24,9 +24,6 @@ describe("Lexer Reader Tests 1.", () => {
   });
   it("parses literal primitives", function () {
     let tests = [
-      {expression: "1||21", value: 1}
-      ];
-    let tests2 = [
       {expression: "b.fn(1,2).toString()", value: scope.b.fn(1, 2).toString()},
       {expression: "b.fn", value: scope.b.fn},
       {expression: "b.fn(1,2)", value: scope.b.fn(1, 2)},
@@ -59,7 +56,7 @@ describe("Lexer Reader Tests 1.", () => {
       {expression: "-3.141", value: -3.141},
       {expression: "-3+1", value: -2},
       {expression: "+3.141", value: 3.141},
-      {expression: "1||1", value: 3.141},
+      {expression: "21||1", value: 21},
       {expression: "val1", value: scope.val1}
     ];
 

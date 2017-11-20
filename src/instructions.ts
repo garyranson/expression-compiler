@@ -402,18 +402,18 @@ export class BinaryModulusInstruction extends BinaryBase {
   }
 }
 
-export class ConcatenateInstuction implements Instruction {
-  constructor(private evals: Instruction[]) {
+export class ConcatenateInstruction implements Instruction {
+  constructor(private instructions: Instruction[]) {
   }
 
   eval(scope: any): any {
     let s = "";
-    for (let e of this.evals) {
+    for (let e of this.instructions) {
       s += e[scope].toString();
     }
     return s;
   }
   isConstant(): boolean {
-    return isConstant(this.evals);
+    return isConstant(this.instructions);
   }
 }

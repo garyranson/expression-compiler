@@ -12,10 +12,12 @@ export class Compiler {
     return expr.visit(this.visitor);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   compileMulti(code: string): Instruction[] {
     return this.parser.parseExpressions(code || "").map((c) => c.visit(this.visitor));
   }
 
+  // noinspection JSUnusedGlobalSymbols
   compileContent(code: string): Instruction {
     return this.parser.parseContent(code || "").visit(this.visitor);
   }

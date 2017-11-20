@@ -1,8 +1,8 @@
 {
-  "version": "2.5.3",
+  "version": "2.6.1",
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2016",
     "module": "commonjs",
     "outDir": "lib",
     "moduleResolution": "node",

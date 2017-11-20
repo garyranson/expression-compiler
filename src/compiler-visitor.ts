@@ -7,7 +7,7 @@ export class CompileVisitor implements Visitor<Instruction> {
     let instructions = this.resolveArgs(expr);
     return instructions.length === 1
       ? instructions[0]
-      : new Instructions.ConcatenateInstuction(instructions);
+      : new Instructions.ConcatenateInstruction(instructions);
   }
 
   visitBinary(operator: string, left: Expression, right: Expression): Instruction {
