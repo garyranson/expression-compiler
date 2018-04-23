@@ -8,7 +8,6 @@ export class Compiler {
 
   compile(code: string): Instruction {
     let expr = this.parser.parseExpression(code || "");
-    console.log(expr.constructor);
     return expr.visit(this.visitor);
   }
 

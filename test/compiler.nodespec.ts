@@ -133,7 +133,7 @@ describe("Lexer Reader Tests 1.", () => {
       {expression: "val1", value: scope.val1},
       {expression: "val1?val1+1:val1+2",value: scope.val1?scope.val1+1:scope.val1+2},
       {expression: "val1==1?val1+1:val1+2",value: scope.val1==1?scope.val1+1:scope.val1+2},
-      {expression: "1==2?2:3",value: 1==2?2:3,alt:'3'},
+      {expression: "1==2?2:3",value: false ? 2 : 3, alt:'3'},
       {expression: "1?2:3",value: 1?2:3,alt:'2'},
       {expression: "{a:val2}",value: {a:scope.val2}},
       {expression: "{a:1,b:2}",value: {a:1,b:2},alt:'{"a":1,"b":2}'},
