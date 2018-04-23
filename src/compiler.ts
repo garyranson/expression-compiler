@@ -1,4 +1,4 @@
-import {Instruction} from "./instructions";
+import {ArrayInstruction, Instruction} from "./instructions";
 import {CompileVisitor} from "./compiler-visitor";
 import {Parser, Visitor} from "expression-parser";
 
@@ -13,8 +13,10 @@ export class Compiler {
   }
 
   // noinspection JSUnusedGlobalSymbols
-  compileMulti(code: string): Instruction[] {
-    return this.parser.parseExpressions(code || "").map((c) => c.visit(this.visitor));
+  compileMulti(code: string): Instruction {
+    return new ArrayInstruction(
+      this.parser.parseExpressions(code || "").map(e => e.visit(this.visitor))
+    );
   }
 
   // noinspection JSUnusedGlobalSymbols
@@ -25,4 +27,16 @@ export class Compiler {
   eval(code: string, scope: any): any {
     return this.compile(code).eval(scope);
   }
+  evalfn(code: string, scope: any): any {
+    return this.compile(code).toFunction()(scope);
+  }
+
+  meval(code: string, scope: any): any {
+    return this.compileMulti(code).eval(scope);
+  }
+  mevalfn(code: string, scope: any): any {
+    return this.compileMulti(code).toFunction()(scope);
+  }
+
+
 }

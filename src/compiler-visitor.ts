@@ -2,6 +2,61 @@ import {Expression, Visitor} from "expression-parser";
 import * as Instructions from "./instructions";
 import {Instruction} from "./instructions";
 
+const rootScope = new Map<string, Instruction>([
+  [
+    "Math", {
+    eval: () => Math, toString: () => 'Math', isConstant: () => false, toFunction: () => () => Math
+  }
+  ],
+  ["Round", {
+    eval: () => Math.round, toString: () => 'Round', isConstant: () => false, toFunction: () => () => Math.round
+  }
+  ]
+]);
+
+const literalMap = new Map<any, Instruction>([
+    [null, {
+      eval: () => null, toString: () => 'null', isConstant: () => true, toFunction: () => () => null
+    }],
+    [undefined, {
+      eval: () => undefined,
+      toString: () => 'undefined',
+      isConstant: () => true,
+      toFunction: () => () => undefined
+    }],
+    [0, {
+      eval: () => 0, toString: () => '0', isConstant: () => true, toFunction: () => () => 0
+    }],
+    [1, {
+      eval: () => 1, toString: () => '1', isConstant: () => true, toFunction: () => () => 1
+    }],
+    [true, {
+      eval: () => true, toString: () => 'true', isConstant: () => true, toFunction: () => () => true
+    }],
+    [false, {
+      eval: () => false, toString: () => 'false', isConstant: () => true, toFunction: () => () => false
+    }]
+  ]
+);
+
+const tokenMap = new Map<string, Instruction>();
+
+function getLiteral(value: any): Instruction {
+  let instruction = literalMap.get(value);
+  if (instruction) return instruction;
+
+  instruction = new Instructions.LiteralInstruction(value);
+
+  switch (typeof value) {
+    case 'number':
+    case 'string':
+      literalMap.set(value, instruction);
+  }
+
+  return instruction;
+
+}
+
 export class CompileVisitor implements Visitor<Instruction> {
   visitConcatenate(expr: Expression[]): Instruction {
     let instructions = this.resolveArgs(expr);
@@ -13,10 +68,9 @@ export class CompileVisitor implements Visitor<Instruction> {
   visitBinary(operator: string, left: Expression, right: Expression): Instruction {
     const instruction = new (getBinaryInstruction(operator))(left.visit(this), right.visit(this));
     return instruction.isConstant()
-      ? new Instructions.LiteralInstruction(instruction.eval())
+      ? getLiteral(instruction.eval())
       : instruction;
   }
-
 
   visitLogicalOr(left: Expression, right: Expression): Instruction {
     const leftIns = left.visit(this);
@@ -30,7 +84,7 @@ export class CompileVisitor implements Visitor<Instruction> {
   visitLogicalAnd(left: Expression, right: Expression): Instruction {
     const ins = new Instructions.LogicalAndInstruction(left.visit(this), right.visit(this));
     return ins.isConstant()
-      ? new Instructions.LiteralInstruction(ins.eval(null))
+      ? getLiteral(ins.eval(null))
       : ins;
   }
 
@@ -44,17 +98,26 @@ export class CompileVisitor implements Visitor<Instruction> {
   }
 
   visitLiteral(value: any, raw: string): Instruction {
-    return new Instructions.LiteralInstruction(value);
+    return getLiteral(value);
+  }
+
+  visitToken(value: string): Instruction {
+    let i = tokenMap.get(value);
+    if (!i) {
+      i = new Instructions.TokenInstruction(value);
+      tokenMap.set(value, i);
+    }
+    return i;
   }
 
   visitScopedAccessor(name: string): Instruction {
-    return new Instructions.ScopedAccessorInstruction(name);
+    return rootScope.get(name) || new Instructions.ScopedAccessorInstruction(name);
   }
 
   visitMember(object: Expression, property: Expression, computed: boolean): Instruction {
     const p = property.visit(this);
-    return p.isConstant()
-      ? new Instructions.MemberAccessorInstruction(object.visit(this), property.visit(this))
+    return computed
+      ? new Instructions.MemberAccessorInstruction(object.visit(this), p)
       : new Instructions.DirectMemberAccessorInstruction(object.visit(this), p.eval());
   }
 
@@ -68,6 +131,7 @@ export class CompileVisitor implements Visitor<Instruction> {
 
   visitConditional(test: Expression, consequent: Expression, alternate: Expression): Instruction {
     const testIns = test.visit(this);
+    console.log(testIns.toString(), testIns.isConstant())
     return testIns.isConstant()
       ? testIns.eval()
         ? consequent.visit(this)
@@ -76,7 +140,7 @@ export class CompileVisitor implements Visitor<Instruction> {
   }
 
   visitUnary(operator: string, argument: Expression): Instruction {
-    const ctor        = getUnaryInstruction(operator);
+    const ctor = getUnaryInstruction(operator);
     const instruction = new ctor(argument.visit(this));
     return instruction.isConstant() ? new Instructions.LiteralInstruction(instruction.eval()) : instruction;
   }
@@ -86,7 +150,7 @@ export class CompileVisitor implements Visitor<Instruction> {
   }
 
   visitObject(propertyNames: Array<string>, expressions: Array<Expression>): Instruction {
-    const inst = new Instructions.ObjectInstruction(propertyNames, this.resolveArgs(expressions));
+    const inst = new Instructions.ObjectInstruction(propertyNames, this.resolveArgs(expressions))
     return inst.isConstant()
       ? new Instructions.LiteralInstruction(inst.eval(null))
       : inst;
@@ -96,6 +160,7 @@ export class CompileVisitor implements Visitor<Instruction> {
     return args.map((arg) => arg.visit(this));
   }
 }
+
 function getUnaryInstruction(operator: string): new (argument: Instruction) => Instruction {
   switch (operator) {
     case "+":
@@ -106,6 +171,7 @@ function getUnaryInstruction(operator: string): new (argument: Instruction) => I
       return Instructions.UnaryNotInstruction;
   }
 }
+
 function getCallInstruction(length: number): new (callee: Instruction, args: Array<Instruction>) => Instruction {
   switch (length) {
     case 0:
@@ -120,6 +186,7 @@ function getCallInstruction(length: number): new (callee: Instruction, args: Arr
       return Instructions.ScopeCallInstruction;
   }
 }
+
 function getMemberCallInstruction(length: number): new (callee: Instruction, accessor: Instruction, args: Array<Instruction>) => Instruction {
   switch (length) {
     case 0:
@@ -134,6 +201,7 @@ function getMemberCallInstruction(length: number): new (callee: Instruction, acc
       return Instructions.MemberCallInstruction;
   }
 }
+
 function getBinaryInstruction(operator: string): new (left: Instruction, right: Instruction) => Instruction {
   switch (operator) {
     case "==":
@@ -164,4 +232,3 @@ function getBinaryInstruction(operator: string): new (left: Instruction, right: 
       return Instructions.BinaryModulusInstruction;
   }
 }
-

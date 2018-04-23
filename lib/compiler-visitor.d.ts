@@ -7,6 +7,7 @@ export declare class CompileVisitor implements Visitor<Instruction> {
     visitLogicalAnd(left: Expression, right: Expression): Instruction;
     visitLogical(operator: string, left: Expression, right: Expression): Instruction;
     visitLiteral(value: any, raw: string): Instruction;
+    visitToken(value: string): Instruction;
     visitScopedAccessor(name: string): Instruction;
     visitMember(object: Expression, property: Expression, computed: boolean): Instruction;
     visitMemberCall(object: Expression, expression: Expression, args: Expression[]): Instruction;
