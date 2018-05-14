@@ -1136,6 +1136,6 @@ export class ConcatenateInstruction implements Instruction {
 
 function BinaryConcatenateFactory(args: CompiledFunction[]) {
   return (scope) => {
-    return args.reduce((a, b) => a + b(scope));
+    return args.reduce((a,b)=> a+b(scope), '');
   }
 }
