@@ -5,9 +5,10 @@ export declare class Compiler {
     parser: Parser;
     compile(code: string): Instruction;
     compileMulti(code: string): Instruction;
+    compileList(code: string): Instruction[];
     compileContent(code: string): Instruction;
-    eval(code: string, scope: any): any;
-    evalfn(code: string, scope: any): any;
+    evaluate(code: string, scope: any): any;
+    evaluateFn(code: string, scope: any): any;
     meval(code: string, scope: any): any;
     mevalfn(code: string, scope: any): any;
 }

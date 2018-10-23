@@ -19,14 +19,19 @@ export class Compiler {
   }
 
   // noinspection JSUnusedGlobalSymbols
+  compileList(code: string) : Instruction[] {
+    return this.parser.parseExpressions(code || "").map(e => e.visit(this.visitor))
+  }
+
+  // noinspection JSUnusedGlobalSymbols
   compileContent(code: string): Instruction {
     return this.parser.parseContent(code || "").visit(this.visitor);
   }
 
-  eval(code: string, scope: any): any {
+  evaluate(code: string, scope: any): any {
     return this.compile(code).eval(scope);
   }
-  evalfn(code: string, scope: any): any {
+  evaluateFn(code: string, scope: any): any {
     return this.compile(code).toFunction()(scope);
   }
 

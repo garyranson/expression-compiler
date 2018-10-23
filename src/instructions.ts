@@ -740,7 +740,7 @@ export class ArrayInstruction implements Instruction {
   }
 
   isConstant(): boolean {
-    return true;
+    return !this.elements.some((i) => !i.isConstant());
   }
 
   toString(): string {

@@ -144,11 +144,11 @@ describe("Lexer Reader Tests 1.", () => {
     ];
 
     for (let test of tests) {
-      expect(compiler.eval(test.expression, scope)).deep.equals(test.value, test.expression);
+      expect(compiler.evaluate(test.expression, scope)).deep.equals(test.value, test.expression);
     }
 
     for (let test of tests) {
-      expect(compiler.eval(test.expression, scope)).deep.equals(test.value, test.expression);
+      expect(compiler.evaluate(test.expression, scope)).deep.equals(test.value, test.expression);
     }
 
     for (let test of tests) {
