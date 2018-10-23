@@ -6,6 +6,10 @@ export class Compiler {
   visitor: Visitor<Instruction> = new CompileVisitor();
   parser: Parser                = new Parser();
 
+  constructor() {
+    console.log('creating compiler');
+  }
+
   compile(code: string): Instruction {
     let expr = this.parser.parseExpression(code || "");
     return expr.visit(this.visitor);

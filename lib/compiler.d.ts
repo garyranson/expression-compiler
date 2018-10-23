@@ -3,6 +3,7 @@ import { Parser, Visitor } from "expression-parser";
 export declare class Compiler {
     visitor: Visitor<Instruction>;
     parser: Parser;
+    constructor();
     compile(code: string): Instruction;
     compileMulti(code: string): Instruction;
     compileList(code: string): Instruction[];
